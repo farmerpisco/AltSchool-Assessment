@@ -1,17 +1,12 @@
-# Use an official Nginx image as the base
+# Use a lightweight Nginx image
 FROM nginx:alpine
 
-# Set working directory inside the container
-WORKDIR /usr/share/nginx/html
+# Copy your app’s static files to Nginx’s web directory
+COPY . /usr/share/nginx/html
 
-# Remove default Nginx website files
-RUN rm -rf ./*
+# Expose port 5000 (or 80, either works)
+EXPOSE 5000
 
-# Copy your project files (HTML, CSS, JS) into the container
-COPY . .
-
-# Expose port 80 for the web server
-EXPOSE 80
-
-# Start Nginx automatically when the container runs
+# Run Nginx in the foreground
 CMD ["nginx", "-g", "daemon off;"]
+
